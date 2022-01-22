@@ -1,0 +1,21 @@
+RewriteEngine on
+
+#Bloquear bots
+
+RewriteCond %{HTTP_REFERER} buttons-for-website\.com [NC,OR]
+RewriteCond %{HTTP_REFERER} darodar\.com [NC,OR]
+
+#Url amigable
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.*)$ $1.php
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.*)$ $1.html
+
+#Redireccion www
+RewriteCond %{HTTP_HOST} !^$
+RewriteCond %{HTTP_HOST} !^www\. [NC]
+RewriteCond %{HTTPS}s ^on(s)|
+RewriteRule ^ http%1://www.%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
